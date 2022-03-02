@@ -13,16 +13,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.7.10
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7.10
+    - name: Environment
+      run: env | grep ENVIRONMENT || true
 
-    - name: Install pypandoc for Spark install
-      run: pip install pypandoc
-
-    - name: Install the Tecton CLI
-      run: pip install --no-cache-dir 'tecton[pyspark]==0.3.0b18'
-
-    - name: Run tecton test
-      run: tecton test
+    - name: Environment with override
+      run: env | grep ENVIRONMENT
+      env:
+        ENVIRONMENT: EVVVV
+        TECTON_ENVIRONMENT: TECTON_EVVVV
