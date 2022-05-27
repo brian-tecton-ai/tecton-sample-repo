@@ -1,4 +1,4 @@
-from tecton import stream_feature_view, FilteredSource, FeatureAggregation, AggregationMode
+from tecton import stream_feature_view, FilteredSource, Aggregation, AggregationMode
 from entities import user
 from data_sources.transactions import transactions_stream
 from datetime import datetime, timedelta
@@ -16,7 +16,9 @@ from datetime import datetime, timedelta
     description='Continuous count of fraudulent transactions',
     aggregation_mode=AggregationMode.CONTINUOUS,
     aggregations=[
-        FeatureAggregation(column='counter', function='count', time_windows=[timedelta(minutes=1), timedelta(minutes=5), timedelta(hours=1)])
+        Aggregation(column='counter', function='count', time_window=timedelta(minutes=1)),
+        Aggregation(column='counter', function='count', time_window=timedelta(minutes=5)),
+        Aggregation(column='counter', function='count', time_window=timedelta(hours=1))
     ],
 )
 def user_continuous_fraudulent_transactions_count(transactions):

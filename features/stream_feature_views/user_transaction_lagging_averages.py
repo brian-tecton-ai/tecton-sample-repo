@@ -1,4 +1,4 @@
-from tecton import stream_feature_view, FilteredSource, FeatureAggregation
+from tecton import stream_feature_view, FilteredSource, Aggregation
 from entities import user
 from data_sources.transactions import transactions_stream
 from datetime import datetime, timedelta
@@ -10,10 +10,8 @@ from datetime import datetime, timedelta
     mode='spark_sql',
     aggregation_interval=timedelta(minutes=10),
     aggregations=[
-        FeatureAggregation(
-            column='amount',
-            function='mean',
-            time_windows=[timedelta(hours=2), timedelta(hours=1)])
+        Aggregation(column='amount',function='mean',time_window=timedelta(hours=2)),
+        Aggregation(column='amount',function='mean',time_window=timedelta(hours=1))
     ]
 )
 def user_transaction_lagging_averages(transactions):

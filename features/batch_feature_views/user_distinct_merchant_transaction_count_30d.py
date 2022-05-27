@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
     offline=False,
     feature_start_time=datetime(2022, 4, 1),
     incremental_backfills=True,
-    schedule_interval=timedelta(days=1),
+    batch_schedule=timedelta(days=1),
     ttl=timedelta(days=2),
     owner='matt@tecton.ai',
     tags={'release': 'production'},
